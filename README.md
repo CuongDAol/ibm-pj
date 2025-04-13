@@ -20,19 +20,15 @@ Dự án SpaceX này bao gồm nhiều module cho phép bạn thu thập, xử l
 
 ## Cấu trúc dự án
 
-### **Module 1: Data Collection API**
-
-**Mục tiêu**: Thu thập dữ liệu từ SpaceX API.
-
-Đoạn mã sau sử dụng thư viện `requests` để gửi yêu cầu GET đến API SpaceX và thu thập dữ liệu về các lần phóng:
+# Module 1: Data Collection API
+Tệp Module1_data-collection-api.ipynb chứa mã dùng để thu thập dữ liệu từ API của SpaceX.
 
 ```python
 import requests
 import pandas as pd
 
 # Gửi yêu cầu GET đến API SpaceX
-url = 'https://api.spacexdata.com/v4/launches'  # URL của API SpaceX cho thông tin phóng
-
+url = 'https://api.spacexdata.com/v4/launches'
 response = requests.get(url)
 
 # Kiểm tra nếu yêu cầu thành công
@@ -44,15 +40,12 @@ else:
 ```
 Giải thích:
 
-Đoạn mã này kết nối đến API SpaceX và thu thập dữ liệu về các lần phóng của Falcon 9.
+Đoạn mã trên sử dụng thư viện requests để gửi yêu cầu GET đến API của SpaceX.
 
-Kiểm tra mã trạng thái HTTP (status code) để xác nhận yêu cầu thành công.
+Sau khi nhận được phản hồi từ API (dạng JSON), mã sẽ chuyển đổi dữ liệu thành đối tượng Python và in ra số lượng bản ghi thu thập được.
 
-Dữ liệu thu thập được từ API sẽ được chuyển thành định dạng JSON và sau đó lưu vào một đối tượng Python.
 # Module 1: SpaceX Data Wrangling
-Mục tiêu: Làm sạch và xử lý dữ liệu thu thập từ API.
-
-Đoạn mã này sử dụng thư viện pandas để làm sạch dữ liệu và chuẩn hóa dữ liệu, bao gồm xử lý giá trị thiếu:
+Tệp Module_1-spacex-Data wrangling.ipynb làm sạch dữ liệu thu thập từ API và chuẩn hóa các giá trị.
 
 ```python
 # Kiểm tra các giá trị thiếu trong DataFrame
@@ -71,15 +64,12 @@ launch_df_cleaned.head()
 ```
 Giải thích:
 
-Đoạn mã kiểm tra các giá trị thiếu (null) trong dữ liệu.
+Đoạn mã kiểm tra các giá trị thiếu trong dữ liệu và loại bỏ các cột không cần thiết như name, links, details.
 
-Loại bỏ các cột không cần thiết để tập trung vào những thông tin quan trọng.
-
-Điền các giá trị thiếu trong cột success bằng False và chuyển đổi các giá trị trong cột date_utc thành định dạng ngày tháng (datetime).
+Sau đó điền giá trị thiếu cho cột success bằng False và chuyển đổi cột date_utc thành định dạng ngày tháng.
 
 # Module 1: Web Scraping
-Mục tiêu: Thu thập dữ liệu từ trang web của SpaceX bằng kỹ thuật Web Scraping.
-
+Tệp Module_1-webscraping.ipynb sử dụng web scraping để thu thập thông tin về các lần phóng từ trang web của SpaceX.
 ```python
 import requests
 from bs4 import BeautifulSoup
@@ -100,12 +90,13 @@ for launch in launches:
 ```
 Giải thích:
 
-Đoạn mã sử dụng thư viện requests để lấy dữ liệu HTML từ trang web SpaceX.
+Đoạn mã này gửi yêu cầu GET đến trang web của SpaceX và sử dụng BeautifulSoup để phân tích HTML.
 
-BeautifulSoup giúp phân tích và trích xuất thông tin về các lần phóng từ HTML, chẳng hạn như tên và thời gian phóng.
+Các thông tin về tên và thời gian của các lần phóng được trích xuất và in ra.
 
 # Module 2: Data Visualization
-Mục tiêu: Trực quan hóa dữ liệu để phân tích các xu hướng và mẫu.
+Tệp Module_2-edatadviz.ipynb thực hiện trực quan hóa dữ liệu sử dụng biểu đồ cột.
+
 ```python
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -122,12 +113,13 @@ plt.show()
 ```
 Giải thích:
 
-Đoạn mã này vẽ biểu đồ cột để thể hiện doanh thu của SpaceX theo từng tháng.
+Đoạn mã này nhóm dữ liệu theo tháng và vẽ biểu đồ cột để hiển thị doanh thu hàng tháng.
 
-Dữ liệu doanh thu đã được nhóm theo tháng và sau đó biểu diễn dưới dạng cột.
+Biểu đồ này giúp phân tích doanh thu của SpaceX theo từng tháng.
 
 # Module 2: SQL Lab
-Mục tiêu: Quản lý và truy vấn dữ liệu sử dụng cơ sở dữ liệu SQL.
+Tệp Module_2_SQL_Lab.ipynb sử dụng SQL để truy vấn dữ liệu từ cơ sở dữ liệu SQLite.
+
 ```python
 import sqlite3
 import pandas as pd
@@ -144,12 +136,10 @@ print(successful_launches.head())
 ```
 Giải thích:
 
-Đoạn mã kết nối đến cơ sở dữ liệu SQLite và thực hiện một truy vấn SQL để lấy các lần phóng thành công từ bảng launches.
-
-Dữ liệu được đọc và lưu vào một DataFrame của pandas để dễ dàng xử lý và phân tích.
+Đoạn mã này kết nối đến cơ sở dữ liệu SQLite và thực hiện một truy vấn để lấy các lần phóng thành công từ bảng launches.
 
 # Module 3: Dash Interactive
-Mục tiêu: Tạo một ứng dụng web tương tác sử dụng Dash để hiển thị dữ liệu SpaceX.
+Tệp Module_3_dash_interactive.py sử dụng Dash để xây dựng ứng dụng web trực quan hóa dữ liệu.
 
 ```python
 import dash
@@ -176,12 +166,10 @@ if __name__ == '__main__':
 ```
 Giải thích:
 
-Đoạn mã này tạo một ứng dụng Dash để hiển thị biểu đồ phân phối các lần phóng thành công của SpaceX.
-
-Biểu đồ được tạo bằng plotly.express và hiển thị trong ứng dụng web Dash.
+Đoạn mã này sử dụng Dash để tạo một ứng dụng web trực quan hóa dữ liệu về sự thành công của các nhiệm vụ SpaceX.
 
 # Module 3: Folium Launch Site Location
-Mục tiêu: Trực quan hóa các địa điểm phóng SpaceX trên bản đồ.
+Tệp Module_3_Folium_launch_site_location.ipynb sử dụng folium để trực quan hóa các địa điểm phóng của SpaceX.
 
 ```python
 import folium
@@ -197,12 +185,10 @@ m.save('launch_site_map.html')
 ```
 Giải thích:
 
-Đoạn mã này sử dụng thư viện folium để tạo một bản đồ hiển thị các địa điểm phóng của SpaceX.
-
-Một đánh dấu được thêm vào bản đồ để thể hiện vị trí phóng và bản đồ sẽ được lưu dưới dạng tệp HTML.
+Đoạn mã này tạo bản đồ với vị trí phóng của SpaceX và lưu bản đồ dưới dạng tệp HTML.
 
 # Module 4: SpaceX Machine Learning Prediction
-Mục tiêu: Dự đoán khả năng hạ cánh thành công của Falcon 9 bằng học máy.
+Tệp Module_4_SpaceX_Machine Learning Prediction_Part_5.ipynb sử dụng mô hình học máy để dự đoán khả năng hạ cánh thành công.
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -226,8 +212,6 @@ print(f"Model accuracy: {accuracy}")
 Giải thích:
 
 Đoạn mã này sử dụng mô hình Random Forest để dự đoán khả năng hạ cánh thành công của Falcon 9.
-
-Dữ liệu được chia thành tập huấn luyện và kiểm tra, và mô hình được huấn luyện và đánh giá độ chính xác.
 
 ## Tác giả
 Dự án này được thực hiện bởi CuongDAol.
